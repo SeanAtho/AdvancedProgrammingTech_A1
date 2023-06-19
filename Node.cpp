@@ -5,12 +5,17 @@
 
 
 /*
- * Constructs a new Node object with specified row, col and distance traveled
+ * Constructs a new Node object with specified row, col, and distance traveled
  */
 Node::Node(int row, int col, int dist_traveled)
     : row(row), col(col), dist_traveled(dist_traveled)
 {
+    // Ensure all parameters are initialized
+    assert(row >= 0);
+    assert(col >= 0);
+    assert(dist_traveled >= 0);
 }
+
 
 /*
  * Node destructor
