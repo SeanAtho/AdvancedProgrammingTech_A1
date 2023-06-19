@@ -31,8 +31,17 @@ public:
     /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
     /*                                           */
     
+    // Checks whether a given node is in the list.
+    // node: reference to the Node object to be checked.
+    // Returns: true if the node is in the list, false otherwise.
+    bool isNodeInList(Node& node);
 
+    // Remove the node at the specified index from the list.
+    // index: The index of the node to be removed.
+    // Returns: void.
+    void removeNodeByIndex(int index);
 
+    
 private:
     /*                                           */
     /* DO NOT MOFIFY THESE VARIABLES             */

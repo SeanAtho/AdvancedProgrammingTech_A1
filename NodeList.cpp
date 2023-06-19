@@ -50,3 +50,51 @@ Node* NodeList::getNode(int i) {
     
     return result;
 }
+
+
+/*
+ * Function: isNodeInList
+ * --------------------------
+ * Check whether a given node is already in the list
+ *
+ * node: Reference to the Node object that needs to be checked.
+ *
+ * Returns: true if the node exists in the list, false otherwise.
+ */
+bool NodeList::isNodeInList(Node& node) {
+    // Loop through all nodes in the list
+    for (int i = 0; i < length; ++i) {
+        // If a node in the list has the same row and column as the given node
+        if (nodes[i]->getRow() == node.getRow() &&
+            nodes[i]->getCol() == node.getCol()) {
+            return true; // Node is in the list
+        }
+    }
+    return false; // Node is not in the list
+}
+
+/*
+ * Function: removeNodeByIndex
+ * -----------------------------
+ * Remove a node from the list based on its index.
+ *
+ * index: The index of the node to be removed.
+ *
+ * Returns: void.
+ */
+void NodeList::removeNodeByIndex(int index) {
+    // Check if index is within the valid range
+    if (index >= 0 && index < length) {
+        // Delete the node at the given index
+        delete nodes[index];
+        // Shift all nodes after the deleted one to fill the gap
+        for (int i = index; i < length - 1; ++i) {
+            nodes[i] = nodes[i + 1];
+        }
+        // Decrease the length of the list as one node is removed
+        --length;
+    } else {
+        // Print error message if index is invalid
+        std::cerr << "Invalid index.\n";
+    }
+}
