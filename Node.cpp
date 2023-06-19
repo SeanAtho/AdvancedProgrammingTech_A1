@@ -68,8 +68,11 @@ void Node::setDistanceTraveled(int dist_traveled)
 // Calculate the estimated distance to goal.
 // It sums the distance traveled and the Manhattan distance from this node to the goal.
 int Node::getEstimatedDist2Goal(Node* goal) {
+    // Ensure that goal is not a null pointer
+    assert(goal != nullptr);
+    
     // Calculate Manhattan distance
-    int manhattanDistance = abs(this->getRow() - goal->getRow()) + abs(this->getCol() - goal->getCol());
+    int manhattanDistance = std::abs(this->getRow() - goal->getRow()) + std::abs(this->getCol() - goal->getCol());
     
     // Return the sum of distance traveled and Manhattan distance
     return this->getDistanceTraveled() + manhattanDistance;
