@@ -90,7 +90,7 @@ void printEnvStdout(Env env, NodeList* solution) {
 void testNode() {
     std::cout << "TESTING Node" << std::endl;
 
-    // Make a Node and print out the contents
+    // Test Node constructor and getters
     Node* node = new Node(1, 1, 2);
     std::cout << node->getRow() << ",";
     std::cout << node->getCol() << ",";
@@ -108,26 +108,41 @@ void testNode() {
 void testNodeList() {
     std::cout << "TESTING NodeList" << std::endl;
 
-    // Make a simple NodeList, should be empty size
     NodeList* nodeList = new NodeList();
     std::cout << "NodeList size: " << nodeList->getLength() << std::endl;
 
-    // Add a Node to the NodeList, print size
     Node* b1 = new Node(1, 1, 1);
     nodeList->addElement(b1);
     std::cout << "NodeList size: " << nodeList->getLength() << std::endl;
 
-    // Add second Nodetest
     Node* b2 = new Node(0, 0, 1);
     nodeList->addElement(b2);
     std::cout << "NodeList size: " << nodeList->getLength() << std::endl;
 
-    // Test Get-ith - should be 0,0,1
     Node* getB = nodeList->getNode(1);
     std::cout << getB->getRow() << ",";
     std::cout << getB->getCol() << ",";
     std::cout << getB->getDistanceTraveled() << std::endl;
 
-    // Print out the NodeList
-    std::cout << "PRINTING OUT A NODELIST IS AN EXERCISE FOR YOU TO DO" << std::endl;
+    // Test isNodeInList method
+    Node testNode(1, 1, 1);
+    if (nodeList->isNodeInList(testNode)) {
+        std::cout << "Node is in the list" << std::endl;
+    } else {
+        std::cout << "Node is not in the list" << std::endl;
+    }
+
+    // Test removeNodeByIndex method
+    nodeList->removeNodeByIndex(1);
+    std::cout << "NodeList size after removal: " << nodeList->getLength() << std::endl;
+
+    // Test getNode with out-of-bound index
+    try {
+        nodeList->getNode(10); // Assuming the NodeList size is less than 10
+    } catch (std::out_of_range& e) {
+        std::cout << "Caught exception: " << e.what() << std::endl;
+    }
+
+    // Clean up
+    delete nodeList;
 }
