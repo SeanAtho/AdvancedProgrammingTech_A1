@@ -34,13 +34,17 @@ public:
     // Checks whether a given node is in the list.
     // node: reference to the Node object to be checked.
     // Returns: true if the node is in the list, false otherwise.
-    bool isNodeInList(Node& node);
+    bool isNodeInList(Node& node) const;
 
     // Remove the node at the specified index from the list.
     // index: The index of the node to be removed.
     // Returns: void.
     void removeNodeByIndex(int index);
 
+    // Get the node with minimum estimated distance to goal
+    Node* getNodeWithMinDist(Node* goal, const NodeList& closedList);
+
+    int getNodeIndex(Node* node);
     
 private:
     /*                                           */

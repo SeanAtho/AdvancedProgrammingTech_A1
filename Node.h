@@ -30,6 +30,8 @@ public:
     /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
     /*                                           */ 
 
+    bool operator==(const Node& other) const;
+
     
 private:
     /*                                           */
