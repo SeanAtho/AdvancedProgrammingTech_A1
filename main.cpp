@@ -105,6 +105,113 @@ void testNode() {
     delete node;
 }
 
+#include <iostream>
+#include <fstream>
+#include <stdexcept>
+#include <string>
+
+#include "Types.h"
+#include "Node.h"
+#include "NodeList.h"
+#include "PathSolver.h"
+
+// Helper test functions
+void testNode();
+void testNodeList();
+
+// Read a environment from standard input.
+void readEnvStdin(Env env);
+
+// Print out a Environment to standard output with path.
+// To be implemented for Milestone 3
+void printEnvStdout(Env env, NodeList* solution);
+
+
+int main(int argc, char** argv){
+    // THESE ARE SOME EXAMPLE FUNCTIONS TO HELP TEST YOUR CODE
+    // AS YOU WORK ON MILESTONE 2. YOU CAN UPDATE THEM YOURSELF
+    // AS YOU GO ALONG.
+    // COMMENT THESE OUT BEFORE YOU SUBMIT!!!
+    std::cout << "TESTING - COMMENT THE OUT TESTING BEFORE YOU SUBMIT!!!" << std::endl;
+    testNode();
+    testNodeList();
+    std::cout << "DONE TESTING" << std::endl << std::endl;
+
+    // Load Environment 
+    Env env;
+    readEnvStdin(env);
+    
+    // Solve using forwardSearch
+    // THIS WILL ONLY WORK IF YOU'VE FINISHED MILESTONE 2
+    PathSolver* pathSolver = new PathSolver();
+    pathSolver->forwardSearch(env);
+
+    NodeList* exploredPositions = nullptr;
+    exploredPositions = pathSolver->getNodesExplored();
+
+    // Get the path
+    // THIS WILL ONLY WORK IF YOU'VE FINISHED MILESTONE 3
+    NodeList* solution = pathSolver->getPath(env);
+
+    printEnvStdout(env, solution);
+
+    delete pathSolver;
+    delete exploredPositions;
+    delete solution;
+
+}
+
+/*
+ * Function: readEnvStdin
+ * ----------------------
+ * Reads the environment from standard input.
+ * Input is read into the provided 2D array 'env'.
+ */
+void readEnvStdin(Env env) {
+    for (int i = 0; i < ENV_DIM; ++i) {
+        for (int j = 0; j < ENV_DIM; ++j) {
+            std::cin >> env[i][j];
+        }
+    }
+}
+
+
+/*
+ * Function: printEnvStdout
+ * ------------------------
+ * Prints the environment to standard output.
+ * The environment is read from the provided 2D array 'env'
+ * and printed to the console.
+ * The 'solution' parameter is currently unused.
+ */
+void printEnvStdout(Env env, NodeList* solution) {
+    //TODO
+    for (int i = 0; i < ENV_DIM; ++i) {
+        for (int j = 0; j < ENV_DIM; ++j) {
+            std::cout << env[i][j];
+        }
+        std::cout << "\n";
+    }
+}
+
+void testNode() {
+    std::cout << "TESTING Node" << std::endl;
+
+    // Test Node constructor and getters
+    Node* node = new Node(1, 1, 2);
+    std::cout << node->getRow() << ",";
+    std::cout << node->getCol() << ",";
+    std::cout << node->getDistanceTraveled() << std::endl;
+    delete node;
+
+    // Change Node and print again
+    node = new Node(4, 2, 3);
+    std::cout << node->getRow() << ",";
+    std::cout << node->getCol() << ",";
+    std::cout << node->getDistanceTraveled() << std::endl;
+    delete node;
+}
+
 void testNodeList() {
     std::cout << "TESTING NodeList" << std::endl;
 
@@ -123,6 +230,13 @@ void testNodeList() {
     std::cout << getB->getRow() << ",";
     std::cout << getB->getCol() << ",";
     std::cout << getB->getDistanceTraveled() << std::endl;
+
+    // Add more Nodes to the NodeList
+    Node* b3 = new Node(3, 4, 2);
+    nodeList->addElement(b3);
+    Node* b4 = new Node(2, 2, 3);
+    nodeList->addElement(b4);
+    std::cout << "NodeList size: " << nodeList->getLength() << std::endl; // should be 4
 
     // Test isNodeInList method
     Node testNode(1, 1, 1);
