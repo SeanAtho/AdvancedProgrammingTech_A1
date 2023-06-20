@@ -36,7 +36,8 @@ int main(int argc, char** argv){
     
     // Solve using forwardSearch
     // THIS WILL ONLY WORK IF YOU'VE FINISHED MILESTONE 2
-    PathSolver* pathSolver = new PathSolver();
+    PathSolver* pathSolver = nullptr;
+    pathSolver = new PathSolver();
     pathSolver->forwardSearch(env);
 
     NodeList* exploredPositions = nullptr;
@@ -44,7 +45,8 @@ int main(int argc, char** argv){
 
     // Get the path
     // THIS WILL ONLY WORK IF YOU'VE FINISHED MILESTONE 3
-    NodeList* solution = pathSolver->getPath(env);
+    NodeList* solution = nullptr;
+    solution = pathSolver->getPath(env);
 
     printEnvStdout(env, solution);
 
@@ -93,7 +95,8 @@ void testNode() {
     std::cout << "TESTING Node" << std::endl;
 
     // Create a Node instance with (row, col, distanceTraveled) = (1, 1, 2)
-    Node* node = new Node(1, 1, 2);
+    Node* node = nullptr;
+    node = new Node(1, 1, 2);
     // Print the values of the Node
     std::cout << node->getRow() << ",";
     std::cout << node->getCol() << ",";
@@ -118,7 +121,8 @@ void testNodeList() {
     std::cout << "TESTING NodeList" << std::endl;
 
     // Create a NodeList instance
-    NodeList* nodeList = new NodeList();
+    NodeList* nodeList = nullptr;
+    nodeList = new NodeList();
     // Print the initial size of NodeList
     std::cout << "NodeList size: " << nodeList->getLength() << std::endl;
 
@@ -178,7 +182,8 @@ void testNodeList() {
     }
 
     // Test adding a node to a full NodeList
-    NodeList* fullList = new NodeList();
+    NodeList* fullList = nullptr;
+    fullList = new NodeList();
     for (int i = 0; i < NODE_LIST_ARRAY_MAX_SIZE; ++i) {
         Node* node = new Node(i, i, i);
         fullList->addElement(node);
@@ -190,7 +195,6 @@ void testNodeList() {
     } catch (std::length_error& e) {
         std::cout << "Caught exception: " << e.what() << std::endl;
     }
-
 
     // Clean up: delete NodeList and Node instances
     delete nodeList;
