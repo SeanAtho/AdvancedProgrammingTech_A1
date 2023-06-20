@@ -194,51 +194,68 @@ void printEnvStdout(Env env, NodeList* solution) {
     }
 }
 
+// Function to test Node class
 void testNode() {
+    // Start of Node test
     std::cout << "TESTING Node" << std::endl;
 
-    // Test Node constructor and getters
+    // Create a Node instance with (row, col, distanceTraveled) = (1, 1, 2)
     Node* node = new Node(1, 1, 2);
+    // Print the values of the Node
     std::cout << node->getRow() << ",";
     std::cout << node->getCol() << ",";
     std::cout << node->getDistanceTraveled() << std::endl;
+    // Clean up the Node instance
     delete node;
 
-    // Change Node and print again
+    // Create another Node instance with different values
     node = new Node(4, 2, 3);
+    // Print the values of the new Node
     std::cout << node->getRow() << ",";
     std::cout << node->getCol() << ",";
     std::cout << node->getDistanceTraveled() << std::endl;
+    // Clean up the Node instance
     delete node;
 }
 
+
+// Function to test NodeList class
 void testNodeList() {
+    // Start of NodeList test
     std::cout << "TESTING NodeList" << std::endl;
 
+    // Create a NodeList instance
     NodeList* nodeList = new NodeList();
+    // Print the initial size of NodeList
     std::cout << "NodeList size: " << nodeList->getLength() << std::endl;
 
+    // Create a Node and add it to NodeList
     Node* b1 = new Node(1, 1, 1);
     nodeList->addElement(b1);
+    // Print the size of NodeList after adding a node
     std::cout << "NodeList size: " << nodeList->getLength() << std::endl;
 
+    // Create another Node and add it to NodeList
     Node* b2 = new Node(0, 0, 1);
     nodeList->addElement(b2);
+    // Print the size of NodeList after adding another node
     std::cout << "NodeList size: " << nodeList->getLength() << std::endl;
 
+    // Get the second Node from NodeList and print its values
     Node* getB = nodeList->getNode(1);
     std::cout << getB->getRow() << ",";
     std::cout << getB->getCol() << ",";
     std::cout << getB->getDistanceTraveled() << std::endl;
 
-    // Add more Nodes to the NodeList
+    // Create more Nodes and add them to NodeList
     Node* b3 = new Node(3, 4, 2);
     nodeList->addElement(b3);
     Node* b4 = new Node(2, 2, 3);
     nodeList->addElement(b4);
+    // Print the size of NodeList after adding more nodes
     std::cout << "NodeList size: " << nodeList->getLength() << std::endl; // should be 4
 
-    // Test isNodeInList method
+    // Test the function that checks if a specific Node is in the NodeList
     Node testNode(1, 1, 1);
     if (nodeList->isNodeInList(testNode)) {
         std::cout << "Node is in the list" << std::endl;
@@ -246,17 +263,23 @@ void testNodeList() {
         std::cout << "Node is not in the list" << std::endl;
     }
 
-    // Test removeNodeByIndex method
+    // Test the function that removes a Node from NodeList by its index
     nodeList->removeNodeByIndex(1);
+    // Print the size of NodeList after removing a node
     std::cout << "NodeList size after removal: " << nodeList->getLength() << std::endl;
 
-    // Test getNode with out-of-bound index
+    // Test getNode function with an out-of-bound index
     try {
         nodeList->getNode(10); // Assuming the NodeList size is less than 10
     } catch (std::out_of_range& e) {
+        // Print the caught exception
         std::cout << "Caught exception: " << e.what() << std::endl;
     }
 
-    // Clean up
+    // Clean up: delete NodeList and Node instances
     delete nodeList;
+    delete b1;
+    delete b2;
+    delete b3;
+    delete b4;
 }
