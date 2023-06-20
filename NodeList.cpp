@@ -98,19 +98,32 @@ void NodeList::removeNodeByIndex(int index) {
     }
 }
 
+// This function returns a pointer to the node in the NodeList with the minimum 
+// estimated distance to the goal node that is not in the closed list.
+// If the NodeList is empty, or all the nodes in the NodeList are in the closed list, 
+// this function throws a runtime_error exception.
 Node* NodeList::getNodeWithMinDist(Node* goal, const NodeList& closedList) {
+    // Throw an error if the NodeList is empty.
     if (length == 0) {
         throw std::runtime_error("The list is empty.");
     }
 
+    // Initialize the minimum distance with the maximum possible int value
+    // and minDistNode with nullptr.
     Node* minDistNode = nullptr;
-    int minDist = std::numeric_limits<int>::max();  // initialize with maximum possible int value
+    int minDist = std::numeric_limits<int>::max();
 
+    // Iterate over the NodeList to find the node with minimum estimated distance.
     for (int i = 0; i < length; i++) {
-        if (!closedList.isNodeInList(*nodes[i])) {  // check if the node is not in the closed list
+        // Only consider the node if it is not in the closed list.
+        if (!closedList.isNodeInList(*nodes[i])) {
+            // Estimate the distance to the goal using Manhattan distance.
             int estimate = nodes[i]->getDistanceTraveled() +
                            std::abs(nodes[i]->getCol() - goal->getCol()) +
-                           std::abs(nodes[i]->getRow() - goal->getRow());  // calculate the estimated distance to the goal
+                           std::abs(nodes[i]->getRow() - goal->getRow());
+
+            // If this node's estimated distance is less than the current minimum,
+            // update the minimum and set minDistNode to this node.
             if (estimate < minDist) {
                 minDist = estimate;
                 minDistNode = nodes[i];
@@ -118,18 +131,28 @@ Node* NodeList::getNodeWithMinDist(Node* goal, const NodeList& closedList) {
         }
     }
 
+    // If all nodes are in the closed list, throw an error.
     if (!minDistNode) {
         throw std::runtime_error("No node found which is not in the closed list.");
     }
 
+    // Return the node with the minimum estimated distance.
     return minDistNode;
 }
 
+// This function returns the index of the provided node in the NodeList.
+// If the node is not found in the NodeList, it returns -1.
 int NodeList::getNodeIndex(Node* node) {
+    // Iterate over the NodeList to find the node.
     for (int i = 0; i < length; ++i) {
+        // If the node at the ith index in the NodeList is the given node,
+        // return the index.
         if (nodes[i] == node) {
             return i;
         }
     }
-    return -1; // if the node is not found in the NodeList
+
+    // If the node is not found in the NodeList, return -1.
+    return -1;
 }
+
