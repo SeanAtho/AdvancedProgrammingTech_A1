@@ -2,6 +2,10 @@
 #include <fstream>
 #include <stdexcept>
 #include <string>
+#include <set>
+#include <utility>
+#include <vector>
+
 
 #include "Types.h"
 #include "Node.h"
@@ -198,4 +202,46 @@ void testNodeList() {
 
     // Clean up: delete NodeList and Node instances
     delete nodeList;
+}
+
+
+void testPathSolver() {
+    std::cout << "TESTING PathSolver" << std::endl;
+
+    // Create a more complex environment
+    Env env = {
+        {'=', '=', '=', '=', 'S', '=', '=', '=', '='},
+        {'=', '.', '.', '.', '.', '.', '.', 'G', '='},
+        {'=', '.', '=', '=', '=', '=', '.', '=', '='},
+        {'=', '.', '=', '=', '=', '=', '.', '=', '='},
+        {'=', '=', '=', '=', '=', '=', '=', '=', '='}
+    };
+
+    // Create a PathSolver instance
+    PathSolver pathSolver;
+
+    // Execute forward search
+    pathSolver.forwardSearch(env);
+
+    // Get the explored nodes
+    NodeList* exploredNodes = pathSolver.getNodesExplored();
+
+    // Set of expected nodes
+    std::set<std::pair<int, int>> expectedNodes = {
+        {1, 4}, {1, 5}, {1, 6}, {2, 1}, {2, 6}, {3, 1}, {3, 6}
+        // Add all the expected node positions in the form {row, col}
+    };
+
+    // Compare the explored nodes with expected nodes
+    for (int i = 0; i < exploredNodes->getLength(); ++i) {
+        Node* node = exploredNodes->getNode(i);
+        if (expectedNodes.find({node->getRow(), node->getCol()}) == expectedNodes.end()) {
+            std::cout << "Unexpected node explored: (" << node->getRow() << ", " << node->getCol() << ")\n";
+        } else {
+            std::cout << "Node explored as expected: (" << node->getRow() << ", " << node->getCol() << ")\n";
+        }
+    }
+
+    // Don't forget to free the memory
+    delete exploredNodes;
 }

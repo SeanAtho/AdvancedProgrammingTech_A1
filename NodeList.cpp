@@ -1,5 +1,6 @@
 #include "NodeList.h"
 #include <iostream>
+#include <limits>
 
 // Constructor: Initialize NodeList with zero nodes.
 NodeList::NodeList() 

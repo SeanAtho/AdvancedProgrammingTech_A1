@@ -78,5 +78,11 @@ int Node::getEstimatedDist2Goal(Node* goal) {
     return this->getDistanceTraveled() + manhattanDistance;
 }
 
+/*
+ * Comparison operator overload. Returns true if the row and column of both nodes are the same.
+ */
+bool Node::operator==(const Node& other) const {
+    return this->row == other.row && this->col == other.col;
+}
 
 //--------------------------------                             
