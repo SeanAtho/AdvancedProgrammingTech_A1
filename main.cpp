@@ -169,10 +169,21 @@ void testNodeList() {
         std::cout << "Caught exception: " << e.what() << std::endl;
     }
 
+    // Test adding a node to a full NodeList
+    NodeList* fullList = new NodeList();
+    for (int i = 0; i < NODE_LIST_ARRAY_MAX_SIZE; ++i) {
+        Node* node = new Node(i, i, i);
+        fullList->addElement(node);
+    }
+    try {
+        std::cout << "Attempting to add a node to a full NodeList..." << std::endl;
+        Node* extraNode = new Node(NODE_LIST_ARRAY_MAX_SIZE, NODE_LIST_ARRAY_MAX_SIZE, NODE_LIST_ARRAY_MAX_SIZE);
+        fullList->addElement(extraNode);
+    } catch (std::length_error& e) {
+        std::cout << "Caught exception: " << e.what() << std::endl;
+    }
+
+
     // Clean up: delete NodeList and Node instances
-    delete nodeList;
-    delete b1;
-    delete b2;
-    delete b3;
-    delete b4;
+    delete fullList;
 }

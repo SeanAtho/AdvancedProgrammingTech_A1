@@ -34,9 +34,10 @@ void NodeList::addElement(Node* newNode) {
         nodes[length] = new Node(*newNode);
         length++;
     } else {
-        std::cerr << "NodeList is full. Can't add more nodes.\n";
+        throw std::length_error("NodeList is full. Can't add more nodes.");
     }
 }
+
 
 // Get a pointer to the ith node in the node list.
 Node* NodeList::getNode(int i) {
