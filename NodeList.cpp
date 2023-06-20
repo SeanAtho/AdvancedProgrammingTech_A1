@@ -41,16 +41,13 @@ void NodeList::addElement(Node* newNode) {
 
 // Get a pointer to the ith node in the node list.
 Node* NodeList::getNode(int i) {
-    Node* result = nullptr;
-    
     if (i >= 0 && i < length) {
-        result = nodes[i];
+        return nodes[i];
     } else {
-        std::cerr << "Invalid index.\n";
+        throw std::out_of_range("Invalid index provided to getNode.");
     }
-    
-    return result;
 }
+
 
 
 /*
@@ -95,7 +92,7 @@ void NodeList::removeNodeByIndex(int index) {
         // Decrease the length of the list as one node is removed
         --length;
     } else {
-        // Print error message if index is invalid
-        std::cerr << "Invalid index.\n";
+        // Throw exception if index is invalid
+        throw std::out_of_range("Invalid index provided to removeNodeByIndex.");
     }
 }

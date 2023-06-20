@@ -135,10 +135,14 @@ void testNodeList() {
     std::cout << "NodeList size: " << nodeList->getLength() << std::endl;
 
     // Get the second Node from NodeList and print its values
-    Node* getB = nodeList->getNode(1);
-    std::cout << getB->getRow() << ",";
-    std::cout << getB->getCol() << ",";
-    std::cout << getB->getDistanceTraveled() << std::endl;
+    try {
+        Node* getB = nodeList->getNode(1);
+        std::cout << getB->getRow() << ",";
+        std::cout << getB->getCol() << ",";
+        std::cout << getB->getDistanceTraveled() << std::endl;
+    } catch (const std::out_of_range& e) {
+        std::cout << "Caught exception: " << e.what() << std::endl;
+    }
 
     // Create more Nodes and add them to NodeList
     Node* b3 = new Node(3, 4, 2);
@@ -157,9 +161,13 @@ void testNodeList() {
     }
 
     // Test the function that removes a Node from NodeList by its index
-    nodeList->removeNodeByIndex(1);
-    // Print the size of NodeList after removing a node
-    std::cout << "NodeList size after removal: " << nodeList->getLength() << std::endl;
+    try {
+        nodeList->removeNodeByIndex(1);
+        // Print the size of NodeList after removing a node
+        std::cout << "NodeList size after removal: " << nodeList->getLength() << std::endl;
+    } catch (const std::out_of_range& e) {
+        std::cout << "Caught exception: " << e.what() << std::endl;
+    }
 
     // Test getNode function with an out-of-bound index
     try {
@@ -185,5 +193,5 @@ void testNodeList() {
 
 
     // Clean up: delete NodeList and Node instances
-    delete fullList;
+    delete nodeList;
 }
