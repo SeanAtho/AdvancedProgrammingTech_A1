@@ -15,6 +15,7 @@
 // Helper test functions
 void testNode();
 void testNodeList();
+void testPathSolver();
 
 // Read a environment from standard input.
 void readEnvStdin(Env env);
@@ -32,6 +33,7 @@ int main(int argc, char** argv){
     std::cout << "TESTING - COMMENT THE OUT TESTING BEFORE YOU SUBMIT!!!" << std::endl;
     testNode();
     testNodeList();
+    testPathSolver();
     std::cout << "DONE TESTING" << std::endl << std::endl;
 
     // Load Environment 
@@ -232,15 +234,27 @@ void testPathSolver() {
         // Add all the expected node positions in the form {row, col}
     };
 
+    // Check if all expected nodes were reached
+    if (!expectedNodes.empty()) {
+        std::cout << "Not all expected nodes were explored. Remaining nodes:\n";
+        for (auto& pair : expectedNodes) {
+            std::cout << "(" << pair.first << ", " << pair.second << ")\n";
+        }
+    }
+
+
     // Compare the explored nodes with expected nodes
     for (int i = 0; i < exploredNodes->getLength(); ++i) {
         Node* node = exploredNodes->getNode(i);
-        if (expectedNodes.find({node->getRow(), node->getCol()}) == expectedNodes.end()) {
+        auto iter = expectedNodes.find({node->getRow(), node->getCol()});
+        if (iter == expectedNodes.end()) {
             std::cout << "Unexpected node explored: (" << node->getRow() << ", " << node->getCol() << ")\n";
         } else {
             std::cout << "Node explored as expected: (" << node->getRow() << ", " << node->getCol() << ")\n";
+            expectedNodes.erase(iter);  // remove the node from expectedNodes set
         }
     }
+
 
     // Don't forget to free the memory
     delete exploredNodes;
