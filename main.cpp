@@ -235,26 +235,24 @@ void testPathSolver() {
     };
 
     // Check if all expected nodes were reached
-    if (!expectedNodes.empty()) {
-        std::cout << "Not all expected nodes were explored. Remaining nodes:\n";
-        for (auto& pair : expectedNodes) {
-            std::cout << "(" << pair.first << ", " << pair.second << ")\n";
-        }
-    }
-
-
-    // Compare the explored nodes with expected nodes
     for (int i = 0; i < exploredNodes->getLength(); ++i) {
         Node* node = exploredNodes->getNode(i);
         auto iter = expectedNodes.find({node->getRow(), node->getCol()});
         if (iter == expectedNodes.end()) {
             std::cout << "Unexpected node explored: (" << node->getRow() << ", " << node->getCol() << ")\n";
         } else {
-            std::cout << "Node explored as expected: (" << node->getRow() << ", " << node->getCol() << ")\n";
             expectedNodes.erase(iter);  // remove the node from expectedNodes set
         }
     }
-
+    
+    if (!expectedNodes.empty()) {
+        std::cout << "Not all expected nodes were explored. Remaining nodes:\n";
+        for (auto& pair : expectedNodes) {
+            std::cout << "(" << pair.first << ", " << pair.second << ")\n";
+        }
+    } else {
+        std::cout << "All expected nodes were explored." << std::endl;
+    }
 
     // Don't forget to free the memory
     delete exploredNodes;

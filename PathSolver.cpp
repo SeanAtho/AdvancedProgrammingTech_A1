@@ -1,6 +1,11 @@
 #include "PathSolver.h"
 #include <iostream>
 
+int manhattanDist(std::pair<int, int> p1, std::pair<int, int> p2) {
+    return std::abs(p1.first - p2.first) + std::abs(p1.second - p2.second);
+}
+
+
 // Constructor: Initialize PathSolver with zero nodes.
 PathSolver::PathSolver(){
     nodesExplored = new NodeList();
@@ -15,6 +20,19 @@ void PathSolver::forwardSearch(Env env){
     // Initialize start and end Nodes with null
     Node* startNode = nullptr;
     Node* endNode = nullptr;
+
+    while (/* some condition */) {
+        // Code to explore nodes
+
+        // Add a debugging print statement
+        std::cout << "Exploring node at (" << currentNode->getRow() << ", " << currentNode->getCol() << ")" << std::endl;
+        
+        // More code to explore nodes
+
+        // When adding a node to the explored list, also print a debug statement
+        exploredNodes->addElement(currentNode);
+        std::cout << "Added node at (" << currentNode->getRow() << ", " << currentNode->getCol() << ") to explored list" << std::endl;
+    }
 
     // Iterate over the environment to find the start and end points
     for (int i = 0; i < ENV_DIM; ++i) {
@@ -39,13 +57,20 @@ void PathSolver::forwardSearch(Env env){
     NodeList openList;
     NodeList closedList;
 
-    // Start the search from the starting node
+    // Add the start node to the open list
     openList.addElement(startNode);
 
     // Keep searching as long as there are nodes to visit
     while (openList.getLength() > 0) {
-        // Pick the node with the shortest distance to the end node
+        // Pick the node with the shortest estimated distance to the end node that's not in closed list
         Node* currentNode = openList.getNodeWithMinDist(endNode, closedList);
+
+        // Remove the current node from the open list
+        int currentNodeIndex = openList.getNodeIndex(currentNode);
+        openList.removeNodeByIndex(currentNodeIndex);
+
+        // Add current node to closed list
+        closedList.addElement(currentNode);
 
         // If the current node is the goal node, finish the search
         if (*currentNode == *endNode) {
@@ -53,39 +78,30 @@ void PathSolver::forwardSearch(Env env){
             break;
         }
 
-        // Remove the current node from the open list and add it to the closed list
-        int currentNodeIndex = openList.getNodeIndex(currentNode);
-        openList.removeNodeByIndex(currentNodeIndex);
-        closedList.addElement(currentNode);
-
         // Examine all the neighboring nodes of the current node
-        for (int dx = -1; dx <= 1; ++dx) {
-            for (int dy = -1; dy <= 1; ++dy) {
-                // Skip the current node itself
-                if (dx == 0 && dy == 0) continue;
+        for (int i = 0; i < 4; ++i) {
+            // Define the four possible movements (up, down, left, right)
+            int dx[4] = {0, 0, -1, 1};
+            int dy[4] = {-1, 1, 0, 0};
 
-                // Calculate the coordinates of the neighbor
-                int nx = currentNode->getCol() + dx;
-                int ny = currentNode->getRow() + dy;
+            // Calculate the coordinates of the neighbor
+            int nx = currentNode->getCol() + dx[i];
+            int ny = currentNode->getRow() + dy[i];
 
-                // Skip if the neighbor is out of bounds or is a wall
-                if (nx < 0 || nx >= ENV_DIM || ny < 0 || ny >= ENV_DIM) continue;
-                if (env[ny][nx] == SYMBOL_WALL) continue;
+            // Skip if the neighbor is out of bounds or is a wall
+            if (nx < 0 || nx >= ENV_DIM || ny < 0 || ny >= ENV_DIM) continue;
+            if (env[ny][nx] == SYMBOL_WALL) continue;
 
-                // Create a temporary neighbor node
-                Node tempNeighbor(nx, ny, currentNode->getDistanceTraveled() + 1);
+            // Create a temporary neighbor node
+            Node tempNeighbor(nx, ny, currentNode->getDistanceTraveled() + 1);
 
-                // If the neighbor node is not in open or closed list, add it to the open list
-                if (!openList.isNodeInList(tempNeighbor) && !closedList.isNodeInList(tempNeighbor)) {
-                    Node* neighbor = new Node(nx, ny, currentNode->getDistanceTraveled() + 1);
-                    openList.addElement(neighbor);
-                }
+            // If the neighbor node is not in open or closed list, add it to the open list
+            if (!openList.isNodeInList(tempNeighbor) && !closedList.isNodeInList(tempNeighbor)) {
+                Node* neighbor = new Node(nx, ny, currentNode->getDistanceTraveled() + 1);
+                openList.addElement(neighbor);
             }
         }
     }
-
-    // Delete the end node as it is no longer needed
-    delete endNode;
 }
 
 // Method for getting a deep copy of the explored NodeList in forward search
