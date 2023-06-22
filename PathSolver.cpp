@@ -21,19 +21,6 @@ void PathSolver::forwardSearch(Env env){
     Node* startNode = nullptr;
     Node* endNode = nullptr;
 
-    while (/* some condition */) {
-        // Code to explore nodes
-
-        // Add a debugging print statement
-        std::cout << "Exploring node at (" << currentNode->getRow() << ", " << currentNode->getCol() << ")" << std::endl;
-        
-        // More code to explore nodes
-
-        // When adding a node to the explored list, also print a debug statement
-        exploredNodes->addElement(currentNode);
-        std::cout << "Added node at (" << currentNode->getRow() << ", " << currentNode->getCol() << ") to explored list" << std::endl;
-    }
-
     // Iterate over the environment to find the start and end points
     for (int i = 0; i < ENV_DIM; ++i) {
         for (int j = 0; j < ENV_DIM; ++j) {
@@ -98,11 +85,13 @@ void PathSolver::forwardSearch(Env env){
             // If the neighbor node is not in open or closed list, add it to the open list
             if (!openList.isNodeInList(tempNeighbor) && !closedList.isNodeInList(tempNeighbor)) {
                 Node* neighbor = new Node(nx, ny, currentNode->getDistanceTraveled() + 1);
+                neighbor->setParent(currentNode); // Set the parent node
                 openList.addElement(neighbor);
             }
         }
     }
 }
+
 
 // Method for getting a deep copy of the explored NodeList in forward search
 NodeList* PathSolver::getNodesExplored(){

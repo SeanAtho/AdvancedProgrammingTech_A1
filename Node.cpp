@@ -7,13 +7,11 @@
 /*
  * Constructs a new Node object with specified row, col, and distance traveled
  */
-Node::Node(int row, int col, int dist_traveled)
-    : row(row), col(col), dist_traveled(dist_traveled)
-{
-    // Ensure all parameters are initialized
-    assert(row >= 0);
-    assert(col >= 0);
-    assert(dist_traveled >= 0);
+Node::Node(int row, int col, int dist_traveled) {
+    this->row = row;
+    this->col = col;
+    this->dist_traveled = dist_traveled;
+    this->parent = nullptr;
 }
 
 
@@ -64,6 +62,14 @@ void Node::setDistanceTraveled(int dist_traveled)
     this->dist_traveled = dist_traveled;
 }
 
+
+void Node::setParent(Node* parent){
+    this->parent = parent;
+}
+
+Node* Node::getParent(){
+    return this->parent;
+}
 
 // Calculate the estimated distance to goal.
 // It sums the distance traveled and the Manhattan distance from this node to the goal.
