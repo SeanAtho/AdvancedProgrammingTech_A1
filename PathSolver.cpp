@@ -16,76 +16,63 @@ PathSolver::~PathSolver(){
     delete nodesExplored;
 }
 
-void PathSolver::forwardSearch(Env env){
-    // Initialize start and end Nodes with null
+void PathSolver::forwardSearch(Env env) {
     Node* startNode = nullptr;
     Node* endNode = nullptr;
 
-    // Iterate over the environment to find the start and end points
     for (int i = 0; i < ENV_DIM; ++i) {
         for (int j = 0; j < ENV_DIM; ++j) {
-            // Check if the current point is the start point
             if (env[i][j] == SYMBOL_START) {
-                startNode = new Node(j, i, 0); // Distance traveled by start node is 0
+                startNode = new Node(j, i, 0);
             } 
-            // Check if the current point is the end point
             else if (env[i][j] == SYMBOL_GOAL) {
-                endNode = new Node(j, i, 0); // Distance traveled is not relevant for end node
+                endNode = new Node(j, i, 0);
             }
         }
     }
 
-    // Throw an error if no start or end point is found
     if (!startNode || !endNode) {
         throw std::runtime_error("No start or end point in the environment.");
     }
 
-    // Create an open list (to visit) and a closed list (already visited)
     NodeList openList;
     NodeList closedList;
 
-    // Add the start node to the open list
     openList.addElement(startNode);
 
-    // Keep searching as long as there are nodes to visit
     while (openList.getLength() > 0) {
-        // Pick the node with the shortest estimated distance to the end node that's not in closed list
         Node* currentNode = openList.getNodeWithMinDist(endNode, closedList);
 
-        // Remove the current node from the open list
+        // You need to get the index of the currentNode in the openList before removing it
         int currentNodeIndex = openList.getNodeIndex(currentNode);
-        openList.removeNodeByIndex(currentNodeIndex);
 
-        // Add current node to closed list
+        // Now you can remove the node
+        Node* removedNode = openList.removeNodeByIndex(currentNodeIndex);
+        // There's no need to delete the removedNode. It's the same as currentNode which will be used later.
+
         closedList.addElement(currentNode);
 
-        // If the current node is the goal node, finish the search
         if (*currentNode == *endNode) {
+            delete nodesExplored;
             nodesExplored = new NodeList(closedList);
             break;
         }
 
-        // Examine all the neighboring nodes of the current node
-        for (int i = 0; i < 4; ++i) {
-            // Define the four possible movements (up, down, left, right)
-            int dx[4] = {0, 0, -1, 1};
-            int dy[4] = {-1, 1, 0, 0};
+        int dx[4] = {0, 0, -1, 1};
+        int dy[4] = {-1, 1, 0, 0};
 
-            // Calculate the coordinates of the neighbor
+        for (int i = 0; i < 4; ++i) {
             int nx = currentNode->getCol() + dx[i];
             int ny = currentNode->getRow() + dy[i];
 
-            // Skip if the neighbor is out of bounds or is a wall
             if (nx < 0 || nx >= ENV_DIM || ny < 0 || ny >= ENV_DIM) continue;
             if (env[ny][nx] == SYMBOL_WALL) continue;
 
-            // Create a temporary neighbor node
             Node tempNeighbor(nx, ny, currentNode->getDistanceTraveled() + 1);
 
-            // If the neighbor node is not in open or closed list, add it to the open list
             if (!openList.isNodeInList(tempNeighbor) && !closedList.isNodeInList(tempNeighbor)) {
                 Node* neighbor = new Node(nx, ny, currentNode->getDistanceTraveled() + 1);
-                neighbor->setParent(currentNode); // Set the parent node
+                neighbor->setParent(currentNode);
                 openList.addElement(neighbor);
             }
         }

@@ -82,17 +82,18 @@ bool NodeList::isNodeInList(Node& node) const {
  *
  * Returns: void.
  */
-void NodeList::removeNodeByIndex(int index) {
+Node* NodeList::removeNodeByIndex(int index) {
     // Check if index is within the valid range
     if (index >= 0 && index < length) {
         // Delete the node at the given index
-        delete nodes[index];
+        Node* removedNode = nodes[index];
         // Shift all nodes after the deleted one to fill the gap
         for (int i = index; i < length - 1; ++i) {
             nodes[i] = nodes[i + 1];
         }
         // Decrease the length of the list as one node is removed
         --length;
+        return removedNode;
     } else {
         // Throw exception if index is invalid
         throw std::out_of_range("Invalid index provided to removeNodeByIndex.");

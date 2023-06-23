@@ -39,7 +39,7 @@ public:
     bool isNodeInList(Node& node) const;
 
     // Removes the node at the given index from the NodeList.
-    void removeNodeByIndex(int index);
+    Node* removeNodeByIndex(int index);
 
     // Returns the node in NodeList with the minimum estimated 
     // distance to the provided goal node, excluding nodes in the closed list.
