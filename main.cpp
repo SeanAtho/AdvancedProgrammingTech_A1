@@ -42,16 +42,28 @@ int main(int argc, char** argv){
     NodeList* exploredPositions = nullptr;
     exploredPositions = pathSolver->getNodesExplored();
 
+    // Print the explored positions
+    std::cout << "Explored Positions: " << std::endl;
+    for (int i = 0; i < exploredPositions->getLength(); i++) {
+        Node* node = exploredPositions->getNode(i);
+        std::cout << "Row: " << node->getRow() << ", Col: " << node->getCol() << std::endl;
+    }
+
+
     // Get the path
     // THIS WILL ONLY WORK IF YOU'VE FINISHED MILESTONE 3
     NodeList* solution = pathSolver->getPath(env);
 
     printEnvStdout(env, solution);
 
+    // Test the copy constructor of NodeList
+    NodeList* copiedList = new NodeList(*exploredPositions);
+    std::cout << "Copied List Size: " << copiedList->getLength() << std::endl;
+
     delete pathSolver;
     delete exploredPositions;
     delete solution;
-
+    delete copiedList;
 }
 
 void readEnvStdin(Env env) {

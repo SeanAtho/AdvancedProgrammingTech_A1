@@ -114,9 +114,12 @@ void PathSolver::forwardSearch(Env env) {
 
 
 
-NodeList* PathSolver::getNodesExplored(){
-    //TODO
+NodeList* PathSolver::getNodesExplored() {
+    // Create a deep copy of the nodesExplored list
+    NodeList* copyList = new NodeList(*nodesExplored);
+    return copyList;
 }
+
 
 NodeList* PathSolver::getPath(Env env){
     // TODO
