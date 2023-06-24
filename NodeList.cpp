@@ -47,3 +47,14 @@ Node* NodeList::getNode(int i){
     std::cout << "Invalid index. Returning nullptr." << std::endl;
     return nullptr;
 }
+
+bool NodeList::containsNode(Node* node) {
+    // Iterate over the nodes in the list
+    for (int i = 0; i < length; i++) {
+        // Check if the current node matches the given node
+        if (nodes[i]->getRow() == node->getRow() && nodes[i]->getCol() == node->getCol()) {
+            return true;  // Node found in the list
+        }
+    }
+    return false;  // Node not found in the list
+}

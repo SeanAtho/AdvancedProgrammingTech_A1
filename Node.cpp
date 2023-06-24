@@ -38,3 +38,7 @@ int Node::getEstimatedDist2Goal(Node* goal){
 }
     
 //--------------------------------                             
+
+bool Node::isGoal(Node* goal) {
+    return (row == goal->getRow()) && (col == goal->getCol());
+}

@@ -27,6 +27,8 @@ public:
     // Get a pointer to the ith node in the node list
     Node* getNode(int i);
 
+    bool containsNode(Node *node);
+
     /*                                           */
     /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
     /*                                           */
