@@ -24,6 +24,8 @@ public:
     // Add a COPY node element to the BACK of the nodelist.
     void addElement(Node* newNode);
 
+    void removeElement(Node *node);
+
     // Get a pointer to the ith node in the node list
     Node* getNode(int i);
 

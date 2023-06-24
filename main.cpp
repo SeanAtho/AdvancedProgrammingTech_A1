@@ -67,7 +67,7 @@ int main(int argc, char** argv){
 }
 
 void readEnvStdin(Env env) {
-    // Read the environment from standard input
+    // Read the environment from standard input (cin)
     for (int i = 0; i < ENV_DIM; i++) {
         for (int j = 0; j < ENV_DIM; j++) {
             char c;
@@ -75,7 +75,11 @@ void readEnvStdin(Env env) {
             env[i][j] = c;
         }
     }
+
+    // Debug: Print the dimensions of the environment
+    std::cout << "Dimensions of environment: " << ENV_DIM << "x" << ENV_DIM << std::endl;
 }
+
 
 
 void printEnvStdout(Env env, NodeList* solution) {

@@ -37,6 +37,19 @@ void NodeList::addElement(Node* newNode) {
     length++;
 }
 
+void NodeList::removeElement(Node* node) {
+    // Find the node in the list
+    for (int i = 0; i < length; i++) {
+        if (nodes[i] == node) {
+            // Shift the elements after the found node to the left
+            for (int j = i; j < length - 1; j++) {
+                nodes[j] = nodes[j + 1];
+            }
+            length--;
+            return;
+        }
+    }
+}
 
 Node* NodeList::getNode(int i){
     // Check if the index is within the valid range

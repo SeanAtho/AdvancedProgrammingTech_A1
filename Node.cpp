@@ -30,6 +30,9 @@ void Node::setDistanceTraveled(int dist_traveled)
 }
 
 int Node::getEstimatedDist2Goal(Node* goal){
+    if (goal == nullptr) {
+        throw std::invalid_argument("Goal node is a null pointer.");
+    }
     // Calculate the Manhattan distance between this node and the goal node
     int manhattanDistance = abs(row - goal->getRow()) + abs(col - goal->getCol());
 

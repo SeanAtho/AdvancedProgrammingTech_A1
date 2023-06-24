@@ -54,7 +54,7 @@ void PathSolver::forwardSearch(Env env) {
         }
 
         // Remove the current node from the open list
-        // No need to remove the node, as it will be overwritten in the next iteration
+        openList.removeElement(current);
 
         // Add the current node to the closed list
         closedList.addElement(current);
@@ -122,7 +122,12 @@ NodeList* PathSolver::getNodesExplored() {
 
 
 NodeList* PathSolver::getPath(Env env){
-    // TODO
+    // TODO: Implement the logic to find the path
+    // ...
+
+    NodeList* path = nullptr; // Placeholder, replace with actual path
+
+    return path; // Return the path or nullptr
 }
 
 //-----------------------------
