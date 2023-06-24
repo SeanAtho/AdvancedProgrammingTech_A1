@@ -54,13 +54,28 @@ int main(int argc, char** argv){
 
 }
 
-void readEnvStdin(Env env){
-    //TODO 
+void readEnvStdin(Env env) {
+    // Read the environment from standard input
+    for (int i = 0; i < ENV_DIM; i++) {
+        for (int j = 0; j < ENV_DIM; j++) {
+            char c;
+            std::cin >> c;
+            env[i][j] = c;
+        }
+    }
 }
 
+
 void printEnvStdout(Env env, NodeList* solution) {
-    //TODO
+    // Print the environment to standard output
+    for (int i = 0; i < ENV_DIM; i++) {
+        for (int j = 0; j < ENV_DIM; j++) {
+            std::cout << env[i][j];
+        }
+        std::cout << std::endl;
+    }
 }
+
 
 void testNode() {
     std::cout << "TESTING Node" << std::endl;
@@ -92,7 +107,7 @@ void testNodeList() {
     nodeList->addElement(b1);
     std::cout << "NodeList size: " << nodeList->getLength() << std::endl;
 
-    // Add second Nodetest
+    // Add second Node
     Node* b2 = new Node(0, 0, 1);
     nodeList->addElement(b2);
     std::cout << "NodeList size: " << nodeList->getLength() << std::endl;
