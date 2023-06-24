@@ -4,9 +4,6 @@
 #include "Types.h"
 #include "Node.h"
 
-// NodeList class encapsulates a list of nodes and provides 
-// functionalities such as adding a node to the list, retrieving a node
-// by its index, and checking if a particular node is in the list.
 class NodeList{
 public:
     /*                                           */
@@ -34,20 +31,8 @@ public:
     /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
     /*                                           */
     
-    // Checks if the provided node is in the NodeList.
-    // Returns true if found, false otherwise.
-    bool isNodeInList(Node& node) const;
 
-    // Removes the node at the given index from the NodeList.
-    Node* removeNodeByIndex(int index);
 
-    // Returns the node in NodeList with the minimum estimated 
-    // distance to the provided goal node, excluding nodes in the closed list.
-    Node* getNodeWithMinDist(Node* goal, const NodeList& closedList);
-
-    // Returns the index of the provided node in the NodeList.
-    int getNodeIndex(Node* node);
-    
 private:
     /*                                           */
     /* DO NOT MOFIFY THESE VARIABLES             */

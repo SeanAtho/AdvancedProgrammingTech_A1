@@ -1,94 +1,35 @@
 #include "Node.h"
 #include <iostream>
-#include <cstdlib>
-#include <cassert>
 
 
-/*
- * Constructs a new Node object with specified row, col, and distance traveled
- */
-Node::Node(int row, int col, int dist_traveled) {
-    this->row = row;
-    this->col = col;
-    this->dist_traveled = dist_traveled;
-    this->parent = nullptr;
+Node::Node(int row, int col, int dist_traveled)
+{
+    // TODO
 }
 
-
-/*
- * Node destructor
- */
 Node::~Node(){
-    // Since Node doesn't have dynamic allocated member, nothing to do here.
+    // TODO
 }
 
-/*
- * Returns the row of the node.
- */
-int Node::getRow()
-{
-    return this->row;
+int Node::getRow(){
+    // TODO
 }
 
-
-/*
- * Returns the column of the node.
- */
-int Node::getCol()
-{
-    return this->col;
+int Node::getCol(){
+    // TODO
 }
 
-
-/*
- * Returns the distance traveled to reach this node.
- */
-int Node::getDistanceTraveled()
-{
-    return this->dist_traveled;
+int Node::getDistanceTraveled(){
+    // TODO
 }
 
-
-/*
- * Sets the distance traveled to reach this node.
- * @param dist_traveled: The distance that has been traveled.
- */
 void Node::setDistanceTraveled(int dist_traveled)
 {
-    // Ensure that dist_traveled is initialized at the point of declaration
-    assert(dist_traveled >= 0);
-
-    // Set the member variable with the input parameter
-    this->dist_traveled = dist_traveled;
+    // TODO
 }
 
-
-void Node::setParent(Node* parent){
-    this->parent = parent;
+int Node::getEstimatedDist2Goal(Node* goal){
+    // TODO
 }
-
-Node* Node::getParent(){
-    return this->parent;
-}
-
-// Calculate the estimated distance to goal.
-// It sums the distance traveled and the Manhattan distance from this node to the goal.
-int Node::getEstimatedDist2Goal(Node* goal) {
-    // Ensure that goal is not a null pointer
-    assert(goal != nullptr);
     
-    // Calculate Manhattan distance
-    int manhattanDistance = std::abs(this->getRow() - goal->getRow()) + std::abs(this->getCol() - goal->getCol());
-    
-    // Return the sum of distance traveled and Manhattan distance
-    return this->getDistanceTraveled() + manhattanDistance;
-}
-
-/*
- * Comparison operator overload. Returns true if the row and column of both nodes are the same.
- */
-bool Node::operator==(const Node& other) const {
-    return this->row == other.row && this->col == other.col;
-}
-
 //--------------------------------                             

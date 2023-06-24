@@ -28,21 +28,9 @@ public:
 
     /*                                           */
     /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
-    /*                                           */ 
-
-    // Overloads the equality operator to compare two Node objects. 
-    // Returns true if the Node objects have the same row and column coordinates, 
-    // false otherwise.
-    bool operator==(const Node& other) const;
+    /*                                           */
 
 
-    // Set the parent of the node
-    void setParent(Node* parent);
-
-    // Get the parent of the node
-    Node* getParent();
-
-    
 private:
     /*                                           */
     /* DO NOT MOFIFY THESE VARIABLES             */
@@ -56,9 +44,6 @@ private:
     /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
     /*                                           */
 
-
-    // Add a parent node pointer
-    Node* parent;
 };
 
 #endif //COSC_ASSIGN_ONE_NODE
