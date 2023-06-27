@@ -112,8 +112,6 @@ void PathSolver::forwardSearch(Env env) {
     delete goal;
 }
 
-
-
 NodeList* PathSolver::getNodesExplored() {
     // Create a deep copy of the nodesExplored list
     NodeList* copyList = new NodeList(*nodesExplored);
