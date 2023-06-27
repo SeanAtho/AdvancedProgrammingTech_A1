@@ -1,94 +1,47 @@
 #include "Node.h"
 #include <iostream>
-#include <cstdlib>
-#include <cassert>
 
 
-/*
- * Constructs a new Node object with specified row, col, and distance traveled
- */
-Node::Node(int row, int col, int dist_traveled) {
-    this->row = row;
-    this->col = col;
-    this->dist_traveled = dist_traveled;
-    this->parent = nullptr;
+Node::Node(int row, int col, int dist_traveled) 
+: row(row), col(col), dist_traveled(dist_traveled)
+{
+    // Constructor implementation
 }
 
-
-/*
- * Node destructor
- */
 Node::~Node(){
-    // Since Node doesn't have dynamic allocated member, nothing to do here.
+    // Destructor implementation
 }
 
-/*
- * Returns the row of the node.
- */
-int Node::getRow()
-{
-    return this->row;
+int Node::getRow(){
+    return row;
 }
 
-
-/*
- * Returns the column of the node.
- */
-int Node::getCol()
-{
-    return this->col;
+int Node::getCol(){
+    return col;
 }
 
-
-/*
- * Returns the distance traveled to reach this node.
- */
-int Node::getDistanceTraveled()
-{
-    return this->dist_traveled;
+int Node::getDistanceTraveled(){
+    return dist_traveled;
 }
 
-
-/*
- * Sets the distance traveled to reach this node.
- * @param dist_traveled: The distance that has been traveled.
- */
 void Node::setDistanceTraveled(int dist_traveled)
 {
-    // Ensure that dist_traveled is initialized at the point of declaration
-    assert(dist_traveled >= 0);
-
-    // Set the member variable with the input parameter
     this->dist_traveled = dist_traveled;
 }
 
+int Node::getEstimatedDist2Goal(Node* goal){
+    if (goal == nullptr) {
+        throw std::invalid_argument("Goal node is a null pointer.");
+    }
+    // Calculate the Manhattan distance between this node and the goal node
+    int manhattanDistance = abs(row - goal->getRow()) + abs(col - goal->getCol());
 
-void Node::setParent(Node* parent){
-    this->parent = parent;
+    // Return the estimated distance by adding the current distance traveled to the Manhattan distance
+    return dist_traveled + manhattanDistance;
 }
-
-Node* Node::getParent(){
-    return this->parent;
-}
-
-// Calculate the estimated distance to goal.
-// It sums the distance traveled and the Manhattan distance from this node to the goal.
-int Node::getEstimatedDist2Goal(Node* goal) {
-    // Ensure that goal is not a null pointer
-    assert(goal != nullptr);
     
-    // Calculate Manhattan distance
-    int manhattanDistance = std::abs(this->getRow() - goal->getRow()) + std::abs(this->getCol() - goal->getCol());
-    
-    // Return the sum of distance traveled and Manhattan distance
-    return this->getDistanceTraveled() + manhattanDistance;
-}
-
-/*
- * Comparison operator overload. Returns true if the row and column of both nodes are the same.
- */
-bool Node::operator==(const Node& other) const {
-    return this->row == other.row && this->col == other.col;
-}
-
 //--------------------------------                             
+
+bool Node::isGoal(Node* goal) {
+    return (row == goal->getRow()) && (col == goal->getCol());
+}
