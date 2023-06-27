@@ -118,8 +118,6 @@ void printEnvStdout(Env env, NodeList* solution) {
 }
 
 
-
-
 void testNode() {
     std::cout << "TESTING Node" << std::endl;
 
@@ -141,26 +139,27 @@ void testNode() {
 void testNodeList() {
     std::cout << "TESTING NodeList" << std::endl;
 
-    // Make a simple NodeList, should be empty size
-    NodeList* nodeList = new NodeList();
-    std::cout << "NodeList size: " << nodeList->getLength() << std::endl;
+    NodeList nodeList;
+    std::cout << "NodeList size: " << nodeList.getLength() << std::endl;
 
-    // Add a Node to the NodeList, print size
-    Node* b1 = new Node(1, 1, 1);
-    nodeList->addElement(b1);
-    std::cout << "NodeList size: " << nodeList->getLength() << std::endl;
+    Node node1(1, 1, 2);
+    nodeList.addElement(&node1);
+    std::cout << "NodeList size: " << nodeList.getLength() << std::endl;
 
-    // Add second Node
-    Node* b2 = new Node(0, 0, 1);
-    nodeList->addElement(b2);
-    std::cout << "NodeList size: " << nodeList->getLength() << std::endl;
+    Node node2(4, 2, 3);
+    nodeList.addElement(&node2);
+    std::cout << "NodeList size: " << nodeList.getLength() << std::endl;
 
-    // Test Get-ith - should be 0,0,1
-    Node* getB = nodeList->getNode(1);
-    std::cout << getB->getRow() << ",";
-    std::cout << getB->getCol() << ",";
-    std::cout << getB->getDistanceTraveled() << std::endl;
+    // Checking NodeList values
+    for (int i = 0; i < nodeList.getLength(); i++) {
+        Node* node = nodeList.getNode(i);
+        if (node != nullptr) {
+            std::cout << node->getRow() << "," << node->getCol() << "," << node->getDistanceTraveled() << std::endl;
+        } else {
+            std::cout << "Invalid node." << std::endl;
+        }
+    }
 
-    // Print out the NodeList
     std::cout << "PRINTING OUT A NODELIST IS AN EXERCISE FOR YOU TO DO" << std::endl;
+    std::cout << "DONE TESTING" << std::endl;
 }

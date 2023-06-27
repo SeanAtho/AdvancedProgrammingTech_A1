@@ -45,11 +45,15 @@ void PathSolver::forwardSearch(Env env) {
         // Iterate over the nodes in the open list and find the node with the smallest estimated distance
         for (int i = 0; i < openList.getLength(); i++) {
             Node* node = openList.getNode(i);
-            int estimatedDistance = node->getEstimatedDist2Goal(goal);
+            if (node != nullptr) {
+                int estimatedDistance = node->getEstimatedDist2Goal(goal);
 
-            if (estimatedDistance < smallestDistance) {
-                smallestDistance = estimatedDistance;
-                current = node;
+                if (estimatedDistance < smallestDistance) {
+                    smallestDistance = estimatedDistance;
+                    current = node;
+                }
+            } else {
+                std::cout << "Invalid node at index: " << i << std::endl;
             }
         }
 
@@ -112,6 +116,9 @@ void PathSolver::forwardSearch(Env env) {
     delete goal;
 }
 
+
+
+
 NodeList* PathSolver::getNodesExplored() {
     // Create a deep copy of the nodesExplored list
     NodeList* copyList = new NodeList(*nodesExplored);
@@ -119,7 +126,7 @@ NodeList* PathSolver::getNodesExplored() {
 }
 
 NodeList* PathSolver::getPath(Env env) {
-    NodeList* path = nullptr;
+    NodeList* path = new NodeList();
     Node* goalNode = nullptr;
 
     // Find the goal node in the explored nodes
@@ -131,12 +138,11 @@ NodeList* PathSolver::getPath(Env env) {
     }
 
     if(goalNode != nullptr) {
-        path = new NodeList();
         Node* currentNode = goalNode;
         NodeList* tempPath = new NodeList();
 
-        // Add goal node to path
-        path->addElement(new Node(*currentNode));
+        // Add goal node to tempPath
+        tempPath->addElement(currentNode);
 
         while(currentNode->getDistanceTraveled() > 0) { // until we reach the start node
             // Check neighboring positions: up, right, down, left
@@ -166,7 +172,7 @@ NodeList* PathSolver::getPath(Env env) {
             }
             if (foundValidNeighbor) {
                 // Only add the node to the path if a valid neighbor was found
-                tempPath->addElement(new Node(*currentNode));
+                tempPath->addElement(currentNode);
             }
         }
 

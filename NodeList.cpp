@@ -51,6 +51,8 @@ void NodeList::removeElement(Node* node) {
     }
 }
 
+
+
 Node* NodeList::getNode(int i){
     // Check if the index is within the valid range
     if (i >= 0 && i < length) {
