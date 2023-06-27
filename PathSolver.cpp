@@ -121,14 +121,66 @@ NodeList* PathSolver::getNodesExplored() {
 }
 
 
-NodeList* PathSolver::getPath(Env env){
-    // TODO: Implement the logic to find the path
-    // ...
+NodeList* PathSolver::getPath(Env env) {
+    NodeList* path = nullptr;
+    Node* goalNode = nullptr;
 
-    NodeList* path = nullptr; // Placeholder, replace with actual path
+    // Find the goal node in the explored nodes
+    for(int i = 0; i < nodesExplored->getLength(); i++) {
+        Node* node = nodesExplored->getNode(i);
+        if(env[node->getRow()][node->getCol()] == SYMBOL_GOAL) {
+            goalNode = node;
+        }
+    }
 
-    return path; // Return the path or nullptr
+    if(goalNode != nullptr) {
+        path = new NodeList();
+        Node* currentNode = goalNode;
+        NodeList* tempPath = new NodeList();
+
+        // Add goal node to path
+        path->addElement(new Node(*currentNode));
+
+        while(currentNode->getDistanceTraveled() > 0) { // until we reach the start node
+            // Check neighboring positions: up, down, left, right
+            int dx[4] = {0, 0, -1, 1};
+            int dy[4] = {-1, 1, 0, 0};
+
+            bool foundValidNeighbor = false;
+
+            for (int i = 0; i < 4 && !foundValidNeighbor; i++) {
+                int newRow = currentNode->getRow() + dy[i];
+                int newCol = currentNode->getCol() + dx[i];
+
+                // Check if the new position is valid
+                bool validPosition = newRow >= 0 && newRow < ENV_DIM && newCol >= 0 && newCol < ENV_DIM;
+
+                if (validPosition) {
+                    for(int j = 0; j < nodesExplored->getLength() && !foundValidNeighbor; j++) {
+                        Node* node = nodesExplored->getNode(j);
+
+                        // If this node is a neighbor of the current node and its distance traveled is one less than the current node's
+                        if(node->getRow() == newRow && node->getCol() == newCol && node->getDistanceTraveled() == currentNode->getDistanceTraveled() - 1) {
+                            currentNode = node;
+                            tempPath->addElement(new Node(*currentNode));
+                            foundValidNeighbor = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        // Reorder tempPath from start to finish and assign it to path
+        for(int i = tempPath->getLength() - 1; i >= 0; i--) {
+            path->addElement(tempPath->getNode(i));
+        }
+        delete tempPath;
+    }
+
+    return path;
 }
+
+
 
 //-----------------------------
 

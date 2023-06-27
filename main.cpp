@@ -83,6 +83,31 @@ void readEnvStdin(Env env) {
 
 
 void printEnvStdout(Env env, NodeList* solution) {
+    // If solution exists, update the environment with the path
+    if (solution != nullptr && solution->getLength() > 0) {
+        for (int i = 0; i < solution->getLength() - 1; i++) {
+            Node* current = solution->getNode(i);
+            Node* next = solution->getNode(i + 1);
+
+            char direction = ' ';
+            if (next->getCol() > current->getCol()) {
+                direction = '>';
+            } else if (next->getCol() < current->getCol()) {
+                direction = '<';
+            } else if (next->getRow() < current->getRow()) {
+                direction = '^';
+            } else if (next->getRow() > current->getRow()) {
+                direction = 'v';
+            }
+
+            // If not start or goal, set the cell to the direction
+            if (env[current->getRow()][current->getCol()] != SYMBOL_START && 
+                env[current->getRow()][current->getCol()] != SYMBOL_GOAL) {
+                env[current->getRow()][current->getCol()] = direction;
+            }
+        }
+    }
+
     // Print the environment to standard output
     for (int i = 0; i < ENV_DIM; i++) {
         for (int j = 0; j < ENV_DIM; j++) {
@@ -91,6 +116,8 @@ void printEnvStdout(Env env, NodeList* solution) {
         std::cout << std::endl;
     }
 }
+
+
 
 
 void testNode() {
