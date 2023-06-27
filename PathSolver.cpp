@@ -120,7 +120,6 @@ NodeList* PathSolver::getNodesExplored() {
     return copyList;
 }
 
-
 NodeList* PathSolver::getPath(Env env) {
     NodeList* path = nullptr;
     Node* goalNode = nullptr;
@@ -142,10 +141,10 @@ NodeList* PathSolver::getPath(Env env) {
         path->addElement(new Node(*currentNode));
 
         while(currentNode->getDistanceTraveled() > 0) { // until we reach the start node
-            // Check neighboring positions: up, down, left, right
-            int dx[4] = {0, 0, -1, 1};
-            int dy[4] = {-1, 1, 0, 0};
-
+            // Check neighboring positions: up, right, down, left
+            int dx[4] = {0, 1, 0, -1};
+            int dy[4] = {-1, 0, 1, 0};
+            
             bool foundValidNeighbor = false;
 
             for (int i = 0; i < 4 && !foundValidNeighbor; i++) {
@@ -162,11 +161,14 @@ NodeList* PathSolver::getPath(Env env) {
                         // If this node is a neighbor of the current node and its distance traveled is one less than the current node's
                         if(node->getRow() == newRow && node->getCol() == newCol && node->getDistanceTraveled() == currentNode->getDistanceTraveled() - 1) {
                             currentNode = node;
-                            tempPath->addElement(new Node(*currentNode));
                             foundValidNeighbor = true;
                         }
                     }
                 }
+            }
+            if (foundValidNeighbor) {
+                // Only add the node to the path if a valid neighbor was found
+                tempPath->addElement(new Node(*currentNode));
             }
         }
 
@@ -179,8 +181,4 @@ NodeList* PathSolver::getPath(Env env) {
 
     return path;
 }
-
-
-
-//-----------------------------
 
