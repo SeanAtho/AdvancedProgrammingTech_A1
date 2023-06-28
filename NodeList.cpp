@@ -55,21 +55,25 @@ void NodeList::removeElement(Node* node) {
 
 Node* NodeList::getNode(int i){
     // Check if the index is within the valid range
+    Node* result = nullptr;
     if (i >= 0 && i < length) {
-        return nodes[i];
+        result = nodes[i];
+    } else {
+        std::cout << "Invalid index." << std::endl;
     }
-
-    std::cout << "Invalid index. Returning nullptr." << std::endl;
-    return nullptr;
+    return result;
 }
 
 bool NodeList::containsNode(Node* node) {
     // Iterate over the nodes in the list
-    for (int i = 0; i < length; i++) {
+    bool foundNode = false;
+    int i = 0;
+    while(i < length && !foundNode) {
         // Check if the current node matches the given node
         if (nodes[i]->getRow() == node->getRow() && nodes[i]->getCol() == node->getCol()) {
-            return true;  // Node found in the list
+            foundNode = true;  
         }
+        i++;
     }
-    return false;  // Node not found in the list
+    return foundNode;
 }
