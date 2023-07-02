@@ -11,9 +11,11 @@
 /*
  * These are some helper test functions for the code.
  * They are not part of the main code and will be commented out before submission.
- */
+ 
 void testNode();
 void testNodeList();
+
+*/
 
 /*
  * This function reads the environment layout from standard input.
@@ -33,10 +35,12 @@ int main(int argc, char** argv){
     // AS YOU WORK ON MILESTONE 2. YOU CAN UPDATE THEM YOURSELF
     // AS YOU GO ALONG.
     // COMMENT THESE OUT BEFORE YOU SUBMIT!!!
+    /*
     std::cout << "TESTING - COMMENT THE OUT TESTING BEFORE YOU SUBMIT!!!" << std::endl;
     testNode();
     testNodeList();
     std::cout << "DONE TESTING" << std::endl << std::endl;
+    */
 
     /*
      * Load Environment.
@@ -103,9 +107,6 @@ void readEnvStdin(Env env) {
             env[i][j] = c;
         }
     }
-
-    // For debugging purposes, print out the dimensions of the environment
-    std::cout << "Dimensions of environment: " << ENV_DIM << "x" << ENV_DIM << std::endl;
 }
 
 
@@ -158,12 +159,14 @@ void printEnvStdout(Env env, NodeList* solution) {
     }
 }
 
+// Here are other methods...
 
+/* 
+ * This part is commented out to disable testing
 
-/*
- * Function testNode
- * Test the Node class by creating some instances, modifying them, and printing their contents.
- */
+// Function testNode
+// Test the Node class by creating some instances, modifying them, and printing their contents.
+ 
 void testNode() {
     // Print the message to indicate the beginning of Node class testing
     std::cout << "TESTING Node" << std::endl;
@@ -186,10 +189,9 @@ void testNode() {
     delete node;
 }
 
-/*
- * Function testNodeList
- * Test the NodeList class by creating an instance, modifying it, and printing its contents.
- */
+// Function testNodeList
+// Test the NodeList class by creating an instance, modifying it, and printing its contents.
+
 void testNodeList() {
     // Print the message to indicate the beginning of NodeList class testing
     std::cout << "TESTING NodeList" << std::endl;
@@ -226,3 +228,5 @@ void testNodeList() {
     std::cout << "DONE TESTING" << std::endl;
 }
 
+End of the testing part
+*/
