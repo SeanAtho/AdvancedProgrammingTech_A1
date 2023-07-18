@@ -3,29 +3,70 @@
 
 #include "Types.h"
 
+
+/*
+ * Class Node
+ * This class represents a node in a graph. Each node has row and column coordinates,
+ * as well as the distance it has traveled from the start node.
+ */
 class Node{
 public:
     /*                                           */
     /* DO NOT MOFIFY ANY CODE IN THIS SECTION    */
     /*                                           */
 
-    // Constructor/Desctructor
+    /*
+     * Node constructor
+     * Initializes a new node with the specified row and column coordinates and distance traveled.
+     * @param int row: The row-coordinate of the node.
+     * @param int col: The column-coordinate of the node.
+     * @param int dist_traveled: The distance that has been traveled from the start node.
+     */
     Node(int row, int col, int dist_traveled);
+
+    /*
+     * Node destructor
+     */
     ~Node();
 
-    // get row-coodinate of the node
+    /*
+     * Function getRow
+     * Returns the row-coordinate of the node.
+     */
     int getRow();
 
-    // get column-coodinate of the node
+    /*
+     * Function getCol
+     * Returns the column-coordinate of the node.
+     */
     int getCol();
 
-    //getter and setter for distance traveled
+    /*
+     * Function getDistanceTraveled
+     * Returns the distance traveled from the start node.
+     */
     int getDistanceTraveled();
+
+    /*
+     * Function setDistanceTraveled
+     * Sets the distance traveled from the start node.
+     * @param int dist_traveled: The new distance to be set.
+     */
     void setDistanceTraveled(int dist_traveled);
 
-    //getter for estimated dist to goal - need to return -> Manhatten distance + distance traveled
+    /*
+     * Function getEstimatedDist2Goal
+     * Returns the estimated distance to the goal node.
+     * This is calculated as the sum of the Manhattan distance to the goal and the distance traveled.
+     * @param Node* goal: The goal node.
+     */
     int getEstimatedDist2Goal(Node* goal);
 
+    /*
+     * Function isGoal
+     * Checks if the current node is the goal node.
+     * @param Node* goal: The goal node.
+     */
     bool isGoal(Node *goal);
 
     /*                                           */
@@ -38,9 +79,9 @@ private:
     /* DO NOT MOFIFY THESE VARIABLES             */
     /*                                           */
 
-    int row;
-    int col;
-    int dist_traveled;  // distance from start node
+    int row;            // The row-coordinate of the node
+    int col;            // The column-coordinate of the node
+    int dist_traveled;  // The distance from the start node
 
     /*                                           */
     /* YOU MAY ADD YOUR MODIFICATIONS HERE       */

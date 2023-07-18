@@ -1,47 +1,65 @@
 #include "NodeList.h"
 #include <iostream>
 
+/*
+ * NodeList constructor
+ * Initializes the length to 0
+ */
 NodeList::NodeList(){
     length = 0;
 }
 
+/*
+ * NodeList destructor
+ * Deletes all the nodes in the list
+ */
 NodeList::~NodeList(){
-    // Delete all the nodes in the list
     for (int i = 0; i < length; i++) {
         delete nodes[i];
     }
 }
 
+/*
+ * Copy constructor for NodeList
+ * Performs a deep copy of the other NodeList
+ */
 NodeList::NodeList(NodeList& other){
-   // Perform a deep copy of the other NodeList
     length = other.length;
     for (int i = 0; i < length; i++) {
         nodes[i] = new Node(*(other.nodes[i]));
     }
 }
 
+/*
+ * Method to get the length of NodeList
+ */
 int NodeList::getLength(){
     return length;
 }
 
+/*
+ * Method to add a new element to NodeList
+ * Checks if the NodeList is already full before adding
+ * Makes a copy of the newNode and adds it to the list
+ */
 void NodeList::addElement(Node* newNode) {
-    // Check if the NodeList is already full
     if (length >= NODE_LIST_ARRAY_MAX_SIZE) {
         std::cout << "Cannot add element. NodeList is full." << std::endl;
         return;
     }
 
-    // Make a copy of the newNode and add it to the list
     Node* copyNode = new Node(*newNode);
     nodes[length] = copyNode;
     length++;
 }
 
+/*
+ * Method to remove an element from NodeList
+ * Finds the node in the list and shifts the elements after the found node to the left
+ */
 void NodeList::removeElement(Node* node) {
-    // Find the node in the list
     for (int i = 0; i < length; i++) {
         if (nodes[i] == node) {
-            // Shift the elements after the found node to the left
             for (int j = i; j < length - 1; j++) {
                 nodes[j] = nodes[j + 1];
             }
@@ -51,23 +69,32 @@ void NodeList::removeElement(Node* node) {
     }
 }
 
+/*
+ * Method to get the node at a particular index
+ * Checks if the index is within the valid range
+ */
 Node* NodeList::getNode(int i){
-    // Check if the index is within the valid range
+    Node* result = nullptr;
     if (i >= 0 && i < length) {
-        return nodes[i];
+        result = nodes[i];
+    } else {
+        std::cout << "Invalid index." << std::endl;
     }
-
-    std::cout << "Invalid index. Returning nullptr." << std::endl;
-    return nullptr;
+    return result;
 }
 
+/*
+ * Method to check if NodeList contains a particular node
+ * Iterates over the nodes in the list and checks if the current node matches the given node
+ */
 bool NodeList::containsNode(Node* node) {
-    // Iterate over the nodes in the list
-    for (int i = 0; i < length; i++) {
-        // Check if the current node matches the given node
+    bool foundNode = false;
+    int i = 0;
+    while(i < length && !foundNode) {
         if (nodes[i]->getRow() == node->getRow() && nodes[i]->getCol() == node->getCol()) {
-            return true;  // Node found in the list
+            foundNode = true;  
         }
+        i++;
     }
-    return false;  // Node not found in the list
+    return foundNode;
 }

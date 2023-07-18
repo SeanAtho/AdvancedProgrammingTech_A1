@@ -10,25 +10,45 @@ public:
     /* DO NOT MOFIFY ANY CODE IN THIS SECTION    */
     /*                                           */
 
-    // Constructor/Desctructor
+    /*
+     * Constructor to initialize a NodeList object
+     */
     NodeList();
+
+    /*
+     * Destructor to delete a NodeList object
+     */
     ~NodeList();
 
-    // Copy Constructor
-    // Produces a DEEP COPY of the NodeList
+    /*
+     * Copy Constructor to create a DEEP COPY of a NodeList object
+     */
     NodeList(NodeList& other);
 
-    // Number of elements in the NodeList
+    /*
+     * Function to get the number of elements in the NodeList
+     */
     int getLength();
 
-    // Add a COPY node element to the BACK of the nodelist.
+    /*
+     * Function to add a COPY node element to the BACK of the NodeList
+     */
     void addElement(Node* newNode);
 
+    /*
+     * Function to remove a specific element from the NodeList
+     */
     void removeElement(Node *node);
 
-    // Get a pointer to the ith node in the node list
+    /*
+     * Function to get a pointer to the ith node in the NodeList
+     */
     Node* getNode(int i);
 
+
+    /*
+     * Function to check if a specific node is contained in the NodeList
+     */
     bool containsNode(Node *node);
 
     /*                                           */
@@ -42,11 +62,15 @@ private:
     /* DO NOT MOFIFY THESE VARIABLES             */
     /*                                           */
 
-    // NodeList: list of node objects
-    // You may assume a fixed size for M1, M2, M3
+    /*
+     * NodeList: list of node objects.
+     * Assuming a fixed size for M1, M2, M3.
+     */
     Node* nodes[NODE_LIST_ARRAY_MAX_SIZE];
 
-    // Number of nodes currently in the NodeList
+    /*
+     * Variable to hold the number of nodes currently in the NodeList
+     */
     int length;
 
     /*                                           */

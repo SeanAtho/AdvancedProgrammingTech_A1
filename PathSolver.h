@@ -5,27 +5,42 @@
 #include "NodeList.h"
 #include "Types.h"
 
+/*
+ * Class: PathSolver
+ * Handles the logic for the path finding using forward search and backtracking.
+ */
 class PathSolver{
 public:
     /*                                           */
     /* DO NOT MOFIFY ANY CODE IN THIS SECTION    */
     /*                                           */
 
-    // Constructor/Destructor
+    /*
+     * Constructor/Destructor
+     */
     PathSolver();
     ~PathSolver();
 
-    // Execute forward search algorithm
-    // To be implemented for Milestone 2
+    /*
+     * Method: forwardSearch
+     * Execute forward search algorithm
+     * To be implemented for Milestone 2
+     */
     void forwardSearch(Env env);
 
-    // Get a DEEP COPY of the explored NodeList in forward search
-    // To be implemented for Milestone 2
+    /*
+     * Method: getNodesExplored
+     * Get a DEEP COPY of the explored NodeList in forward search
+     * To be implemented for Milestone 2
+     */
     NodeList* getNodesExplored();
 
-    // Execute backtracking and Get a DEEP COPY of the path the 
-    // robot should travel
-    // To be implemented for Milestone 3
+    /*
+     * Method: getPath
+     * Execute backtracking and Get a DEEP COPY of the path the 
+     * robot should travel
+     * To be implemented for Milestone 3
+     */
     NodeList* getPath(Env env);
 
     /*                                           */
@@ -37,7 +52,9 @@ private:
     /* DO NOT MOFIFY THESE VARIABLES             */
     /*                                           */
 
-    // Nodes explored in forward search algorithm
+    /*
+     * Nodes explored in forward search algorithm
+     */
     NodeList* nodesExplored;
 
     /*                                           */
@@ -45,8 +62,5 @@ private:
     /*                                           */
     
 };
-
-
-
 
 #endif //COSC_ASSIGN_ONE_PATHSOLVER
